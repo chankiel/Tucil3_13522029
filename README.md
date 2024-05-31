@@ -13,7 +13,7 @@ In this project, I'm making a Word Ladder Solver, that solves word ladder game w
 - <a href="#author">Author</a><br/>
 - <a href="#note">Additional Note</a>
 
-<h2 id="tech-stack">💻 Tech Stack</h2>
+<h2 id="tech-stack">Tech Stack</h2>
 
 - Java
 - Java AWT
@@ -38,12 +38,12 @@ cd path/to/this/repo
 
 <h2 id="usage">Usage</h2>
 
-1. Input your starting word into the "Starting Word" labeled input textbox. Do the same with your destination word
+1. Input your starting word into the "Starting Word" labeled input textbox. Do the same with your destination word  
 ![One](./img/empty_home.png)
-2. Pick the algorithm of your choice to solve the game. It concists of A* Algorithm, GBFS Algorithm, or UCS Algorithm. 
+2. Pick the algorithm of your choice to solve the game. It concists of A* Algorithm, GBFS Algorithm, or UCS Algorithm.   
 ![Two](./img/input_home.png)
 
-3. Click "SEARCH" to show the results
+3. Click "SEARCH" to show the results  
 ![Three](./img/result.png)
 
 <h2 id="author">Author</h2>
