@@ -12,31 +12,35 @@ public class UCSGraph extends Graph{
 
     @Override
     public Solution traverseSolution(){
-        long startTime = System.currentTimeMillis();
-        
+        long startTime = System.nanoTime();
+
+        nodeQueue.add(new Node(getStartWord(), null, 0,null));
+
         int nodesVisited = 0;
-        Node startNode = new Node(getStartWord(), null, 0,null);
         Node curNode = null;
-        
-        nodeQueue.add(startNode);
+
         while (!nodeQueue.isEmpty()) {
             curNode = nodeQueue.poll();
             nodesVisited++;
-            
+
+            if(checkVisited(curNode.getWord())) {
+                continue;
+            }
+
+            markVisited(curNode.getWord());
             if(curNode.getWord().equals(getDestWord())){
                 break;
             }
-            
+
             ArrayList<String> childs = curNode.expandChild();
             for(String child:childs){
                 if(!checkVisited(child)){
                     nodeQueue.add(new Node(child, curNode, curNode.getCost()+1,null));
-                    markVisited(child);
                 }
             }
         }
-        long endTime = System.currentTimeMillis();
-        double duration = (endTime-startTime);
+        long endTime = System.nanoTime();
+        double duration = (endTime-startTime)/1_000_000.0;
 
         if(curNode.getWord().equals(getDestWord())){
             return new Solution(curNode, duration, nodesVisited);

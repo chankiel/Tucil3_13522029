@@ -19,41 +19,37 @@ public class GBFSGraph extends Graph{
     
     @Override
     public Solution traverseSolution(){
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
 
         Node node = new Node(getStartWord(), null, cost(getStartWord()),null);
         markVisited(getStartWord());
 
-        Boolean stop = false,found=false;
         int nodesVisited = 0;
-        while(!stop){
+        while(true){
             nodesVisited++;
+            markVisited(node.getWord());
+            if(node.getWord().equals(getDestWord())){
+                break;
+            }
+
             ArrayList<String> children = node.expandChild();
             Integer min = 9999;
             String word="";
             for(String child:children){
-                if(!checkVisited(child)){
-                    if(cost(child)<min){
-                        min = cost(child);
-                        word = child;
-                    }
+                if(!checkVisited(child) && cost(child)<min){
+                    min = cost(child);
+                    word = child;
                 }
             }
-            if(min==9999){
-                stop = true;
-            }else{
-                if(word.equals(getDestWord())){
-                    stop = true;
-                    found = true;
-                }
-                markVisited(word);
-                node = new Node(word, node, min,null);
+            if(min==9999) {
+                break;
             }
+            node = new Node(word, node, min,null);
         }
-        long endTime = System.currentTimeMillis();
-        double duration = endTime-startTime;
+        long endTime = System.nanoTime();
+        double duration = (endTime-startTime)/1_000_000.0;
 
-        if(found){
+        if(node.getWord().equals(getDestWord())){
             return new Solution(node, duration, nodesVisited);
         }
         return new Solution(null, duration, nodesVisited);

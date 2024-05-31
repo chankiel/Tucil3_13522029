@@ -21,37 +21,38 @@ public class AStarGraph extends Graph{
 
     @Override
     public Solution traverseSolution(){
-        long startTime = System.currentTimeMillis();
-        
-        Node startNode = new Node(getStartWord(), null, cost(getStartWord()),0);
-        nodeQueue.add(startNode);
+        long startTime = System.nanoTime();
+
+        nodeQueue.add(new Node(getStartWord(), null, 0,0));
         Node curNode = null;
         int nodesVisited = 0;
+        boolean found = false;
         
         while (!nodeQueue.isEmpty()) {
             curNode = nodeQueue.poll();
             nodesVisited++;
+            if(checkVisited(curNode.getWord())){
+                continue;
+            }
+
+            markVisited(curNode.getWord());
             if(curNode.getWord().equals(getDestWord())){
+                found = true;
                 break;
             }
 
-            String word = curNode.getWord();
-            for(int i=0;i<word.length();i++){
-
-                ArrayList<String> childs = curNode.expandChild();
-                for(String child:childs){
-                    if(!checkVisited(child)){
-                        Integer childCost = curNode.getDistFromStart() + 1 + cost(child);
-                        nodeQueue.add(new Node(child, curNode, childCost,curNode.getDistFromStart()+1));
-                        markVisited(child);
-                    }
+            ArrayList<String> childs = curNode.expandChild();
+            for(String child:childs){
+                if(!checkVisited(child)){
+                    Integer childCost = curNode.getDistFromStart() + 1 + cost(child);
+                    nodeQueue.add(new Node(child, curNode, childCost,curNode.getDistFromStart()+1));
                 }
             }
         }
         
-        long endTime = System.currentTimeMillis();
-        double duration = endTime-startTime;
-        if(curNode.getWord().equals(getDestWord())){
+        long endTime = System.nanoTime();
+        double duration = (endTime-startTime)/1_000_000.0;
+        if(found){
             return new Solution(curNode, duration, nodesVisited);
         }
         return new Solution(null, duration, nodesVisited);
