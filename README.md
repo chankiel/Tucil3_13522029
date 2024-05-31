@@ -2,6 +2,7 @@
 <h2 id="description">Description </h2>
 
 Word Ladder is a word puzzle where you try to transform one word into another by changing one letter at a time, creating a sequence of valid English words. Each intermediate word in the sequence must also be a valid English word. The challenge is to do this in the fewest number of steps possible. For example, to transform "cat" into "dog," you might go: cat -> cot -> cog -> dog. It's a fun exercise in wordplay and problem-solving.  
+  
 In this project, I'm making a Word Ladder Solver, that solves word ladder game with route planning algorithm, such as A* Algorithm, GBFS (Greedy Best First Search) Algorithm, UCS (Uniform Cost Search) Algorithm. It aims to give and display the optimal solution for the starting and destination word given. It also has the GUI display of the solution steps, complete with box's color difference between steps to display the move more clearly. 
 
 <h2 id="table-of-contents">Table of Contents</h2>
