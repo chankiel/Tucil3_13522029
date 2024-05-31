@@ -139,10 +139,6 @@ public class SolutionWindow extends JFrame {
         pack();
     }// </editor-fold>
 
-    /**
-     * @param args the command line arguments
-     */
-
     // Variables declaration - do not modify
     private JLabel jLabel1;
     private JLabel jLabel2;
