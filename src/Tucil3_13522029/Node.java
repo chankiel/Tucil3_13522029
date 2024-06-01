@@ -5,6 +5,7 @@ public class Node {
     private String word;
     private Node parent;
     private Integer cost;
+    // distFromStart only for A Star
     private Integer distFromStart;
 
     public Node(String word,Node parent,Integer cost,Integer distFromStart){
