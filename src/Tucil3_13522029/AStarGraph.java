@@ -2,11 +2,9 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class AStarGraph extends Graph{
-    private PriorityQueue<Node> nodeQueue;
 
     public AStarGraph(String startingWord,String destWord){
-        super(startingWord,destWord);  
-        nodeQueue = new PriorityQueue<>(new NodeComparator());  
+        super(startingWord,destWord);
     }
 
     public Integer cost(String word){
@@ -26,8 +24,7 @@ public class AStarGraph extends Graph{
         nodeQueue.add(new Node(getStartWord(), null, 0,0));
         Node curNode = null;
         int nodesVisited = 0;
-        boolean found = false;
-        
+
         while (!nodeQueue.isEmpty()) {
             curNode = nodeQueue.poll();
             nodesVisited++;
@@ -37,7 +34,6 @@ public class AStarGraph extends Graph{
 
             markVisited(curNode.getWord());
             if(curNode.getWord().equals(getDestWord())){
-                found = true;
                 break;
             }
 
@@ -52,7 +48,7 @@ public class AStarGraph extends Graph{
         
         long endTime = System.nanoTime();
         double duration = (endTime-startTime)/1_000_000.0;
-        if(found){
+        if(curNode.getWord().equals(getDestWord())){
             return new Solution(curNode, duration, nodesVisited);
         }
         return new Solution(null, duration, nodesVisited);

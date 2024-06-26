@@ -3,11 +3,9 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class UCSGraph extends Graph{
-    private PriorityQueue<Node> nodeQueue;
 
     public UCSGraph(String startingWord,String destWord){
         super(startingWord,destWord);
-        nodeQueue = new PriorityQueue<>(new NodeComparator());        
     }
 
     @Override

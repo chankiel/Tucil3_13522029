@@ -21,36 +21,34 @@ public class GBFSGraph extends Graph{
     public Solution traverseSolution(){
         long startTime = System.nanoTime();
 
-        Node node = new Node(getStartWord(), null, cost(getStartWord()),null);
-        markVisited(getStartWord());
-
+        nodeQueue.add(new Node(getStartWord(), null, 0,null));
+        Node curNode = null;
         int nodesVisited = 0;
-        while(true){
+
+        while (!nodeQueue.isEmpty()) {
+            curNode = nodeQueue.poll();
             nodesVisited++;
-            markVisited(node.getWord());
-            if(node.getWord().equals(getDestWord())){
+            if(checkVisited(curNode.getWord())){
+                continue;
+            }
+
+            markVisited(curNode.getWord());
+            if(curNode.getWord().equals(getDestWord())){
                 break;
             }
 
-            ArrayList<String> children = node.expandChild();
-            Integer min = 9999;
-            String word="";
-            for(String child:children){
-                if(!checkVisited(child) && cost(child)<min){
-                    min = cost(child);
-                    word = child;
+            ArrayList<String> childs = curNode.expandChild();
+            for(String child:childs){
+                if(!checkVisited(child)){
+                    nodeQueue.add(new Node(child, curNode, cost(child),null));
                 }
             }
-            if(min==9999) {
-                break;
-            }
-            node = new Node(word, node, min,null);
         }
+
         long endTime = System.nanoTime();
         double duration = (endTime-startTime)/1_000_000.0;
-
-        if(node.getWord().equals(getDestWord())){
-            return new Solution(node, duration, nodesVisited);
+        if(curNode.getWord().equals(getDestWord())){
+            return new Solution(curNode, duration, nodesVisited);
         }
         return new Solution(null, duration, nodesVisited);
     }
